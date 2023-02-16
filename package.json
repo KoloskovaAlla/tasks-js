@@ -1,0 +1,19 @@
+{
+  "name": "tasks-js",
+  "version": "1.0.0",
+  "description": "Tasks in JS",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "engines": {
+    "node": ">=16"
+  },
+  "devDependencies": {
+    "jest": "^29.4.3"
+  }
+}
