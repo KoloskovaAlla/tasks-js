@@ -2,10 +2,10 @@ import { distanceBetweenTwoPoints } from './distanceBetweenTwoPoints';
 
 const dataForTests = {
   test1: {
-  points: {
-    pointA: {x: 1, y:3},
-    pointB: {x: 5, y:6}
-  },
+    points: {
+      pointA: { x: 1, y:3 },
+      pointB: { x: 5, y:6 }
+    },
     expectedDistance: 5
   }
 };
