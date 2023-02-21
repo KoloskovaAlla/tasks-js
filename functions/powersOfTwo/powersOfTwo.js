@@ -4,11 +4,12 @@
  */
 
 export const powersOfTwo = (indicator) => {
-  const arr = [];
+  const powers = [];
 
-  for (let index = 0; index <= indicator; index++) {
-    arr.push(Math.pow(2, index));
+  for (let count = 0; count <= indicator; count++) {
+    const power = Math.pow(2, count);
+    powers.push(power);
   };
 
-  return arr;
+  return powers;
 };
