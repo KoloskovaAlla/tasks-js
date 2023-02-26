@@ -1,0 +1,9 @@
+The Collatz Conjecture states that for any positive natural number n, this process:
+
+if n is even, divide it by 2
+if n is odd, multiply it by 3 and add 1
+repeat
+will eventually reach n = 1.
+
+Если взять любое натуральное число n и совершить с ним следующие преобразования, рано или поздно всегда получится единица.
+Если число четное, делим пополам. Если нечетное, умножаем на 3 и прибавляем единицу.
