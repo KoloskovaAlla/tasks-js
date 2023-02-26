@@ -1,3 +1,8 @@
+/** 
+ * @param {number} num 
+ * @returns {array}
+ */
+
 export const conjectureCollatz = (num) => {
   let results = [];
 
