@@ -1,0 +1,5 @@
+The function that, when given a number n (n >= 1 ), returns the n-th number in the Fibonacci Sequence.
+
+For example, nthFibo(4) == 2, because 2 is the 4th number in the Fibonacci Sequence.
+
+0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610, 987, 1597, 2584, 4181, 6765, 10946, 17711
