@@ -10,4 +10,3 @@ export const targetDateAdvanced = (startAmount, targetAmount, rate, startDate) =
   date.setDate(date.getDate() + days);
   return date.toISOString().substring(0, 10);  
 };
-

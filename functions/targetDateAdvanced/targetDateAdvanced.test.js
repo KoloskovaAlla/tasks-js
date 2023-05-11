@@ -4,33 +4,19 @@ const dataForTests = {
   test1: {
     dataForCalculation: {
       startAmount: 100000,
-      targetAmount: 101000,
-      rate: 0.98,
-      startedDate: '2016-01-01'
-    },
-    expectedDate: '2017-01-01'
-  },
-  test2: {
-    dataForCalculation: {
-      startAmount: 100000,
       targetAmount: 150000,
-      rate: 2
+      rate: 9,
+      startedDate: '2023-05-12'
     },
-    expectedDate: '2035-12-26'
-  }
+    expectedDate: '2027-10-21'
+  } 
 };
 
 describe('date', () => {
   it('Unit test 1', () => {
     const { dataForCalculation, expectedDate } = dataForTests.test1;
-    const { startAmount, targetAmount, rate } = dataForCalculation;
-    const date = targetDate(startAmount, targetAmount, rate);
+    const { startAmount, targetAmount, rate, startedDate } = dataForCalculation;
+    const date =  targetDateAdvanced(startAmount, targetAmount, rate, startedDate);
     expect(date).toEqual(expectedDate);
-  })
-  it('Unit test 2', () => {
-    const { dataForCalculation, expectedDate } = dataForTests.test2;
-    const { startAmount, targetAmount, rate } = dataForCalculation;
-    const date = targetDate(startAmount, targetAmount, rate);
-    expect(date).toEqual(expectedDate);
-  })
+  }) 
 });
