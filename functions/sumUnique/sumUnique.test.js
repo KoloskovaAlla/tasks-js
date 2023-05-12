@@ -9,8 +9,7 @@ const dataForTests = {
 
 describe('classNames:', () => {
   it('Unit test 1', () => {
-    const { list, expectedSum } = dataForTests.test1;
-    
+    const { list, expectedSum } = dataForTests.test1;    
     const sum = sumUnique(list);
     expect(sum).toEqual(expectedSum);
   });
