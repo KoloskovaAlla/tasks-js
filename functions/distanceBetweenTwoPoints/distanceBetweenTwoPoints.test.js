@@ -15,7 +15,6 @@ describe('distanceBetweenTwoPoints:', () => {
     const { points, expectedDistance } = dataForTests.test1;
     const { pointA, pointB } = points;
     const distance = distanceBetweenTwoPoints(pointA, pointB);
-
     expect(distance).toEqual(expectedDistance);
   });
 });
