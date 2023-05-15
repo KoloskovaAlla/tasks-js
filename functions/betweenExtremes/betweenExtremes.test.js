@@ -11,8 +11,8 @@ const dataForTests = {
 
 describe('classNames:', () => {
   it('Unit test 1', () => {
-    const { array, expectedDifference } = dataForTests.test1;    
-    const diffenrence =  betweenExtremes(array);
+    const { array, expectedDifference } = dataForTests.test1;
+    const diffenrence = betweenExtremes(array);
     expect(diffenrence).toEqual(expectedDifference);
-  })
-})
+  });
+});
