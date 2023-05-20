@@ -1,4 +1,3 @@
-import { declareClass } from '../../../../Users/Алла/AppData/Local/Microsoft/TypeScript/5.0/node_modules/@babel/types/lib/index';
 import { removeElements } from './removeElements';
 
 const dataForTests = {
