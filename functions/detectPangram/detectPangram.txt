@@ -1,0 +1,7 @@
+A pangram is a sentence that contains every single letter of the alphabet at least once. For example, the sentence "The quick brown fox jumps over the lazy dog" is a pangram, because it uses the letters A-Z at least once (case is irrelevant).
+
+Given a string, detect whether or not it is a pangram. Return True if it is, False if not. Ignore numbers and punctuation.
+
+Панграмма - это предложение, которое содержит каждую букву алфавита по крайней мере один раз. Например, предложение "The quick brown fox jumps over the lazy dog" является панграммой, потому что в нем по крайней мере один раз используются буквы A-Z (регистр не имеет значения).
+
+Получив строку, определите, является ли она панграммой или нет. Возвращает True, если это так, и False, если нет. Игнорируйте цифры и знаки препинания.
