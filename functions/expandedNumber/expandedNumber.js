@@ -1,4 +1,4 @@
-const expandedNumber = (number) => {
+export const expandedNumber = (number) => {
  const numberArray = number.toString().split('');
  let expandedForm = [];
  for (let index = 0; index < numberArray.length; index++) {
@@ -10,6 +10,3 @@ const expandedNumber = (number) => {
  console.log(expandedForm.join(' + '));
  return expandedForm.join(' + ');
 };
-
-expandedNumber(421);
-expandedNumber(70304);
