@@ -4,7 +4,7 @@ export const likes = (users) => {
     case 0: 
       return 'no one likes this';  
     case 1: 
-    return `${users[0]} likes this`;
+      return `${users[0]} likes this`;
     case 2:     
       return `${users[0]} and ${users[1]} like this`
     case 3:
