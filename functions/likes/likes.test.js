@@ -11,7 +11,7 @@ const dataForTests = {
   },
   test3: {
     users: ['Kolya'],
-    expectedLikes: 'Kolya likes this '
+    expectedLikes: 'Kolya likes this'
   },
   test4: {
     users: [],
@@ -22,6 +22,21 @@ const dataForTests = {
 describe('likes', () => {
   it('Unit test 1', () => {
     const { users, expectedLikes } = dataForTests.test1;
+    const resultLikes = likes(users);
+    expect(resultLikes).toEqual(expectedLikes);
+  });
+  it('Unit test 2', () => {
+    const { users, expectedLikes } = dataForTests.test2;
+    const resultLikes = likes(users);
+    expect(resultLikes).toEqual(expectedLikes);
+  });
+  it('Unit test 3', () => {
+    const { users, expectedLikes } = dataForTests.test3;
+    const resultLikes = likes(users);
+    expect(resultLikes).toEqual(expectedLikes);
+  });
+  it('Unit test 4', () => {
+    const { users, expectedLikes } = dataForTests.test4;
     const resultLikes = likes(users);
     expect(resultLikes).toEqual(expectedLikes);
   });
