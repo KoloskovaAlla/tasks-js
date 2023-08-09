@@ -1,16 +1,9 @@
 import readline from 'readline';
 // const readline = require('readline');
-
 const reader = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout
+    input: process.stdin,
+    output: process.stdout
 });
-
-reader.on('line', (line) => {
-  arr.push(line.trim()); // Добавляем каждую отдельную строку в массив arr
-});
-
-const pairs = [];
 
 const canTransform = (s1, s2) => {
     if (s1.length !== s2.length) {
@@ -20,15 +13,10 @@ const canTransform = (s1, s2) => {
     const transformations = new Map();
 
     for (let i = 0; i < s1.length; i++) {
-        if (!transformations.has(s1[i])) {
+        if (!transformations.has(s1[i]) && !transformations.has(s2[i])) {
             transformations.set(s1[i], s2[i]);
-        } else if (transformations.get(s1[i]) !== s2[i]) {
-            return "NO";
-        }
-
-        if (!transformations.has(s2[i])) {
             transformations.set(s2[i], s1[i]);
-        } else if (transformations.get(s2[i]) !== s1[i]) {
+        } else if (transformations.get(s1[i]) !== s2[i] || transformations.get(s2[i]) !== s1[i]) {
             return "NO";
         }
     }
@@ -36,12 +24,25 @@ const canTransform = (s1, s2) => {
     return "YES";
 }
 
-rl.on('line', (line) => {
-    pairs.push(line.trim());
+let count = 0;
+let currentPair = [];
+const pairs = [];
+reader.on('line', (line) => {
+    if (count === 0) {
+        count = parseInt(line);
+    } else {
+        currentPair.push(line.trim());
+        console.log('вывод в консоль - ' + currentPair);
+        if (currentPair.length === 2) {
+            pairs.push(currentPair);
+            currentPair = [];
+            count--;
+        }
 
-    if (pairs.length === 2) {
-        const result = canTransform(pairs[0], pairs[1]);
-        console.log(result);
-        pairs.length = 0; // Очищаем массив для следующей пары строк
+        if (count === 0) {
+            const result = pairs.map(pair => canTransform(pair[0], pair[1]));
+            result.forEach(res => console.log(res));
+            reader.close();
+        }
     }
 });
