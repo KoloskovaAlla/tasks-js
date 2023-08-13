@@ -7,49 +7,90 @@ const reader = readline.createInterface({
 
 const pairs = [];
 
-const canTransform = (s1, s2) => {
-    if (s1.length !== s2.length) {
-        return "NO";
-    }
+// const canTransform = (string1, string2) => {
+//     //если строки разной длины, дальше можно не сравнивать и сразу вернуть NO
+//     if (string1.length !== string2.length || !/^[a-zA-Z]+$/.test(string1)) return 'NO';
 
-    const transformations = new Map();
+//     // Объект, где будут храниться пары символов
+//     const transformations = {};
 
-    for (let i = 0; i < s1.length; i++) {
-        if (!transformations.has(s1[i])) {
-            transformations.set(s1[i], s2[i]);
-        } else if (transformations.get(s1[i]) !== s2[i]) {
-            return "NO"; // Если замена не соответствует правилам, возвращаем "NO"
-        }
+//     // Цикл для посимвольного прохождения по строкам
+//     for (let index = 0; index < string1.length; index++) {
+//         const currentChar1 = string1[index]; // текущий символ из первой строки
+//         const currentChar2 = string2[index]; // текущий символ из второй строки
 
-        if (!transformations.has(s2[i])) {
-            transformations.set(s2[i], s1[i]);
-        } else if (transformations.get(s2[i]) !== s1[i]) {
-            return "NO"; // Если замена не соответствует правилам, возвращаем "NO"
-        }
-    }
+//         //Если у символа из первой строки еще нет пары, добавляем пару
+//         if (!transformations[currentChar1]) transformations[currentChar1] = currentChar2;
 
-    return "YES"; // Если все замены прошли успешно, возвращаем "YES"
-}
+//         //Если у символа из второй строки еще нет пары, добавляем ему пару
+//         if (!transformations[currentChar2]) transformations[currentChar2] = currentChar1;
 
-let count = 0;
+//         //Является ли пара взаимной
+//         if (transformations[currentChar1] !== currentChar2 || transformations[currentChar2] !== currentChar1) return 'NO';
+//     };   
 
-let currentPair = [];
+//     return 'YES';
+// };
+    // const canTransform = (string1, string2) => {
+    //     const transformations = {};
 
-reader.on('line', (line) => {
-    if (count === 0) {
-        count = parseInt(line);
-    } else {
-        currentPair.push(line.trim());
-        if (currentPair.length === 2) {
-            pairs.push(currentPair);
-            currentPair = [];
-            count--;
-        }
+    //     if (string1.length !== string2.length || 
+    //         !/^[a-zA-Z]+$/.test(string1) || 
+    //         !/^[a-zA-Z]+$/.test(string2)
+    //     ) return 'NO';
+        
+    //     const result = string1.split('').map((currentChar1, index) => {
+    //         const currentChar2 = string2[index];
 
+    //         if (!transformations[currentChar1]) transformations[currentChar1] = currentChar2;
+    //         if (!transformations[currentChar2]) transformations[currentChar2] = currentChar1;
+
+    //         return transformations[currentChar1] === currentChar2 && transformations[currentChar2] === currentChar1;
+    //     });
+        
+    //     return result.every(value => value) ? 'YES' : 'NO';
+    // };
+
+    const canTransform = (string1, string2) => {
+        const transformations = {};
+
+        if (string1.length !== string2.length || 
+            !/^[a-zA-Z]+$/.test(string1) || 
+            !/^[a-zA-Z]+$/.test(string2)) 
+        return 'NO';
+
+        string1.split('').forEach((currentChar1, index) => {
+            const currentChar2 = string2[index];
+
+            if (!transformations[currentChar1]) transformations[currentChar1] = currentChar2;
+            if (!transformations[currentChar2]) transformations[currentChar2] = currentChar1;
+
+            if (transformations[currentChar1] !== currentChar2 || transformations[currentChar2] !== currentChar1) return 'NO';
+        });
+
+        return 'YES';
+    };
+
+    let count = 0;
+
+    let currentPair = [];
+
+    reader.on('line', (line) => {
         if (count === 0) {
-            const result = pairs.map(pair => canTransform(pair[0], pair[1]));
-            result.forEach(res => console.log(res));
-            reader.close();
+            count = parseInt(line);
+        } else {
+            currentPair.push(line.trim());
+            if (currentPair.length === 2) {
+                pairs.push(currentPair);
+                currentPair = [];
+                count--;
+            }
+
+            if (count === 0) {
+                // const result = pairs.map(pair => canTransform(pair[0], pair[1]));
+                // result.forEach(res => console.log(res));
+                pairs.map((pair) => console.log(canTransform(pair[0], pair[1])))
+                reader.close();
+            }
         }
-    }
-});
+    });
