@@ -12,7 +12,7 @@ const pairs = [];
 //     if (string1.length !== string2.length || !/^[a-zA-Z]+$/.test(string1)) return 'NO';
 
 //     // Объект, где будут храниться пары символов
-//     const transformations = {};
+//     const swap = {};
 
 //     // Цикл для посимвольного прохождения по строкам
 //     for (let index = 0; index < string1.length; index++) {
@@ -32,7 +32,7 @@ const pairs = [];
 //     return 'YES';
 // };
     // const canTransform = (string1, string2) => {
-    //     const transformations = {};
+    //     const swap = {};
 
     //     if (string1.length !== string2.length || 
     //         !/^[a-zA-Z]+$/.test(string1) || 
@@ -51,21 +51,26 @@ const pairs = [];
     //     return result.every(value => value) ? 'YES' : 'NO';
     // };
 
+    const checkStrings = (string1, string2) => {
+        if (string1.length === string2.length && 
+            /^[a-zA-Z]+$/.test(string1) &&
+            /^[a-zA-Z]+$/.test(string2)) 
+        return true;     
+    };
+
     const canTransform = (string1, string2) => {
-        const transformations = {};
+        const swap = {};
 
-        if (string1.length !== string2.length || 
-            !/^[a-zA-Z]+$/.test(string1) || 
-            !/^[a-zA-Z]+$/.test(string2)) 
-        return 'NO';
+        if  (!checkStrings(string1, string2)) return 'NO';
 
-        string1.split('').forEach((currentChar1, index) => {
-            const currentChar2 = string2[index];
+        const  chars1 = string1.split('');
+        chars1.forEach((char1, index) => {
+            const char2 = string2[index];
 
-            if (!transformations[currentChar1]) transformations[currentChar1] = currentChar2;
-            if (!transformations[currentChar2]) transformations[currentChar2] = currentChar1;
+            if (!swap[char1]) swap[char1] = char2;
+            if (!swap[char2]) swap[char2] = char1;
 
-            if (transformations[currentChar1] !== currentChar2 || transformations[currentChar2] !== currentChar1) return 'NO';
+            if (swap[char1] !== char2 || swap[char2] !== char1) return 'NO';
         });
 
         return 'YES';
