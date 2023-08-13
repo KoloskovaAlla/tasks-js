@@ -6,26 +6,33 @@ const reader = readline.createInterface({
 });
 
 const pairs = [];
-const canTransform = (string1, string2) => {
-    if (string1.length !== string2.length) {
-        return 'NO';
+
+const canTransform = (s1, s2) => {
+    if (s1.length !== s2.length) {
+        return "NO";
     }
 
     const transformations = new Map();
 
-    for (let index = 0; index < string1.length; index++) {
-        if (!transformations.has(string1[index])) transformations.set(string1[index],  string2[index]);            
-        else 
-            if (transformations.get(string1[index]) !==  string2[index]) return 'NO';         
+    for (let i = 0; i < s1.length; i++) {
+        if (!transformations.has(s1[i])) {
+            transformations.set(s1[i], s2[i]);
+        } else if (transformations.get(s1[i]) !== s2[i]) {
+            return "NO"; // Если замена не соответствует правилам, возвращаем "NO"
+        }
 
-        if (!transformations.has(string2[index])) transformations.set(string2[index], string1[index]);
-        else 
-            if (transformations.get(string2[index]) !== string1[index]) return 'NO';
+        if (!transformations.has(s2[i])) {
+            transformations.set(s2[i], s1[i]);
+        } else if (transformations.get(s2[i]) !== s1[i]) {
+            return "NO"; // Если замена не соответствует правилам, возвращаем "NO"
+        }
     }
-    return 'YES'; 
+
+    return "YES"; // Если все замены прошли успешно, возвращаем "YES"
 }
 
 let count = 0;
+
 let currentPair = [];
 
 reader.on('line', (line) => {
@@ -39,8 +46,9 @@ reader.on('line', (line) => {
             count--;
         }
 
-        if (count === 0) {         
-            pairs.map((pair) => console.log(canTransform(pair[0], pair[1])));
+        if (count === 0) {
+            const result = pairs.map(pair => canTransform(pair[0], pair[1]));
+            result.forEach(res => console.log(res));
             reader.close();
         }
     }
