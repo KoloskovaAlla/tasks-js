@@ -9,8 +9,8 @@ const pairs = [];
 
 const checkStrs = (str1, str2) => {
     const areLengthsEqual = str1.length === str2.length;
-    const isStr1Latin = /^[a-zA-Z]+$/.test(string1);
-    const isStr2Latin = /^[a-zA-Z]+$/.test(string2);
+    const isStr1Latin = /^[a-zA-Z]+$/.test(str1);
+    const isStr2Latin = /^[a-zA-Z]+$/.test(str2);
     return areLengthsEqual && isStr1Latin && isStr2Latin;
 };
 
@@ -24,17 +24,16 @@ const canTransform = (str1, str2) => {
     str1Chars.forEach((str1Char, index) => {
         const str2Char = str2[index];
 
-        if (!swap[str1Char]) swap[str1Char] = char2;
+        if (!swap[str1Char]) swap[str1Char] = str2Char;
         if (!swap[str2Char]) swap[str2Char] = str1Char;
 
-        const isNonUnique = (char1, char2) => {
-            return swap[char1] !== char2;
-        };
+        const notCouple = swap[str1Char] !== str2Char || swap[str2Char] !== str1Char;
+        console.log(notCouple)
 
-        if (isNonUnique(str1Char, str2Char) || isNonUnique(str2Char, str1Char)) return 'NO';
+        if (notCouple) return 'NO';
     });
+    // return 'YES';
 
-    return 'YES';
 };
 
 let count = 0;
