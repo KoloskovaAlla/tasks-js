@@ -27,12 +27,10 @@ const canTransform = (str1, str2) => {
         if (!swap[str1Char]) swap[str1Char] = str2Char;
         if (!swap[str2Char]) swap[str2Char] = str1Char;
 
-        const notCouple = swap[str1Char] !== str2Char || swap[str2Char] !== str1Char;
-        console.log(notCouple)
-
-        if (notCouple) return 'NO';
+        if (swap[str1Char] !== str2Char || swap[str2Char] !== str1Char) return 'NO';
     });
-    // return 'YES';
+
+    return 'YES';
 
 };
 
