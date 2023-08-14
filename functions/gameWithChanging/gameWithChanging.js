@@ -12,7 +12,7 @@ const canTransform = (string1, string2) => {
     if (string1.length !== string2.length || !/^[a-zA-Z]+$/.test(string1)) return 'NO';
 
     // Объект, где будут храниться пары символов
-    const transformations = {};
+    const swap = {};
 
     // Цикл для посимвольного прохождения по строкам
     for (let index = 0; index < string1.length; index++) {
@@ -20,56 +20,17 @@ const canTransform = (string1, string2) => {
         const currentChar2 = string2[index]; // текущий символ из второй строки
 
         //Если у символа из первой строки еще нет пары, добавляем пару
-        if (!transformations[currentChar1]) transformations[currentChar1] = currentChar2;
+        if (!swap[currentChar1]) swap[currentChar1] = currentChar2;
 
         //Если у символа из второй строки еще нет пары, добавляем ему пару
-        if (!transformations[currentChar2]) transformations[currentChar2] = currentChar1;
+        if (!swap[currentChar2]) swap[currentChar2] = currentChar1;
 
         //Является ли пара взаимной
-        if (transformations[currentChar1] !== currentChar2 || transformations[currentChar2] !== currentChar1) return 'NO';
+        if (swap[currentChar1] !== currentChar2 || swap[currentChar2] !== currentChar1) return 'NO';
     };
 
     return 'YES';
 };
-// const canTransform = (string1, string2) => {
-//     const transformations = {};
-
-//     if (string1.length !== string2.length || 
-//         !/^[a-zA-Z]+$/.test(string1) || 
-//         !/^[a-zA-Z]+$/.test(string2)
-//     ) return 'NO';
-
-//     const result = string1.split('').map((currentChar1, index) => {
-//         const currentChar2 = string2[index];
-
-//         if (!transformations[currentChar1]) transformations[currentChar1] = currentChar2;
-//         if (!transformations[currentChar2]) transformations[currentChar2] = currentChar1;
-
-//         return transformations[currentChar1] === currentChar2 && transformations[currentChar2] === currentChar1;
-//     });
-
-//     return result.every(value => value) ? 'YES' : 'NO';
-// };
-
-// const canTransform = (string1, string2) => {
-//     const transformations = {};
-
-//     if (string1.length !== string2.length || 
-//         !/^[a-zA-Z]+$/.test(string1) || 
-//         !/^[a-zA-Z]+$/.test(string2)) 
-//     return 'NO';
-
-//     string1.split('').forEach((currentChar1, index) => {
-//         const currentChar2 = string2[index];
-
-//         if (!transformations[currentChar1]) transformations[currentChar1] = currentChar2;
-//         if (!transformations[currentChar2]) transformations[currentChar2] = currentChar1;
-
-//         if (transformations[currentChar1] !== currentChar2 || transformations[currentChar2] !== currentChar1) return 'NO';
-//     });
-
-//     return 'YES';
-// };
 
 let count = 0;
 
