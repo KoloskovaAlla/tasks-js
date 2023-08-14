@@ -7,17 +7,21 @@ const reader = readline.createInterface({
 
 const pairs = [];
 
-const canTransform = (string1, string2) => {
+const canTransform = (str1, str2) => {
     //если строки разной длины, дальше можно не сравнивать и сразу вернуть NO
-    if (string1.length !== string2.length || !/^[a-zA-Z]+$/.test(string1)) return 'NO';
+    if (str1.length !== str2.length || !/^[a-zA-Z]+$/.test(str1)) return 'NO';
 
     // Объект, где будут храниться пары символов
     const swap = {};
 
     // Цикл для посимвольного прохождения по строкам
-    for (let index = 0; index < string1.length; index++) {
-        const currentChar1 = string1[index]; // текущий символ из первой строки
-        const currentChar2 = string2[index]; // текущий символ из второй строки
+    const str1Chars = str1.split('');
+    str1Chars.forEach((str1Char, index) => {
+        const str2Char = str2[index];
+    });
+    for (let index = 0; index < str1.length; index++) {
+        const currentChar1 = str1[index]; // текущий символ из первой строки
+        const currentChar2 = str2[index]; // текущий символ из второй строки
 
         //Если у символа из первой строки еще нет пары, добавляем пару
         if (!swap[currentChar1]) swap[currentChar1] = currentChar2;
