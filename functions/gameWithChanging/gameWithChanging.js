@@ -6,35 +6,38 @@ const reader = readline.createInterface({
 });
 
 const pairs = [];
-// if (str1.length !== str2.length || !/^[a-zA-Z]+$/.test(str1)) return 'NO';
+let count = 0;
+let currentPair = [];
+
+const areStrsCorrect = (str1, str2) => {
+    const isLengthEqual = str1.length === str2.length;
+    const isStr1Latin = /^[a-zA-Z]+$/.test(str1);
+    const isStr2Latin = /^[a-zA-Z]+$/.test(str2);
+    return isLengthEqual && isStr1Latin && isStr2Latin;
+};
 
 const canTransform = (str1, str2) => {
-    const swap = {};
+    if (!areStrsCorrect(str1, str2)) return 'NO';
 
-    const hasMismatch = (char1, char2) => {
-        return swap[char1] !== char2;
-    };
-    let hasNonMutualPair;
-   
+    const swap = {};
     const str1Chars = str1.split('');
+    let hasNonMutualPair;
+
+    const hasMismatch = (char1, char2) => swap[char1] !== char2;
 
     str1Chars.forEach((str1Char, index) => {
         const str2Char = str2[index];
 
         if (!swap[str1Char]) swap[str1Char] = str2Char;
-        if (!swap[str2Char]) swap[str2Char] = str1Char; 
+        if (!swap[str2Char]) swap[str2Char] = str1Char;
 
-        const hasMismatchFromStr1 =  hasMismatch(str1Char, str2Char); 
-        const hasMismatchFromStr2 =  hasMismatch(str2Char, str1Char);    
-        hasNonMutualPair = hasMismatchFromStr1 || hasMismatchFromStr2;       
+        const hasMismatchFromStr1 = hasMismatch(str1Char, str2Char);
+        const hasMismatchFromStr2 = hasMismatch(str2Char, str1Char);
+        hasNonMutualPair = hasMismatchFromStr1 || hasMismatchFromStr2;
     });
-    if (hasNonMutualPair) return 'NO';
-    return 'YES';
+
+    return hasNonMutualPair ? 'NO' : 'YES'
 };
-
-let count = 0;
-
-let currentPair = [];
 
 reader.on('line', (line) => {
     if (count === 0) {
@@ -48,8 +51,6 @@ reader.on('line', (line) => {
         }
 
         if (count === 0) {
-            // const result = pairs.map(pair => canTransform(pair[0], pair[1]));
-            // result.forEach(res => console.log(res));
             pairs.map((pair) => console.log(canTransform(pair[0], pair[1])))
             reader.close();
         }
