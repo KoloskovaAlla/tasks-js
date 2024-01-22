@@ -14,7 +14,7 @@ let arr = [];
 
 reader.on('line', (line) => {
   arr = line.trim().split(' ');
-  result = sum(parseInt(arr[0]), parseInt(arr[1]));
+  let result = sum(parseInt(arr[0]), parseInt(arr[1]));
   console.log(result);
 });
 
