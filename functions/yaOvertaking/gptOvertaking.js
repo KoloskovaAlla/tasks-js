@@ -1,39 +1,29 @@
 // const readline = require('readline');
 import readline from 'readline';
 
-// function customFloor(input) {
-//   // Разбиваем строку на целую и дробную части
-//   const [integerPart, decimalPart] = input.split('.');
 
-//   // Возвращаем только целую часть
-//   return integerPart;
-// }
 
 const countOvertakes = (n, t, s, speeds) => {
-  if (speeds.length !== n) return;
   let rounds = [];
 
   for (let i = 0; i < n; i++) {
-    const currentCarRound = speeds[i] * t / s;
+    // let currentCarRound = speeds[i] * t / s;
+    let currentCarRound = Math.floor(speeds[i] * t / s);
+
     rounds.push(currentCarRound);
   }
 
   let overtaking = 0;
-  const intPart = Math.floor(rounds[0]);
-  const fractPart0 = rounds[0] - Math.floor(rounds[0]);
 
   for (let i = 1; i < n; i++) {
-    const fractPartI = rounds[i] - Math.floor(rounds[i]);
-    const dif = rounds[0] - rounds[i];
-    if (dif > 1) {
-      if (fractPart0 === fractPartI) overtaking += dif - 1;
-      else overtaking += Math.floor(dif);
 
+
+    if (rounds[0] - rounds[i] > 1) {
+      overtaking += rounds[0] - rounds[i] - 1;
     }
   }
 
-  // console.log(overtaking);
-  return (overtaking);
+  return overtaking;
 };
 
 const reader = readline.createInterface({
@@ -51,7 +41,7 @@ reader.on('line', (line) => {
     const n = trackData[0];
     const t = trackData[1];
     const s = trackData[2];
-    const speeds = inputLines[1].split(' ').map(Number);
+    const speeds = inputLines[1].split(' ').map(BigInt);
 
     console.log(countOvertakes(n, t, s, speeds));
 
