@@ -2,30 +2,30 @@
 import readline from 'readline';
 
 const countOvertakes = (n, t, s, speeds) => {
-  let overtaking = 0;
-  let bigOvertaking = BigInt(0);
-  const fractPart0 = speeds[0] / s * t % 1;
-  const bigSpeed0 = BigInt(speeds[0]);
 
-  for (let i = 1; i < n; i++) {
-    if (speeds[0] > speeds[i]) {
-      const fractPartI = speeds[i] / s * t % 1;
-      
-      const dif =(speeds[0] - speeds[i]) / s * t
-      
-       const bigSpeedI = BigInt(speeds[i]);
-       const bigSum= BigInt(bigSpeed0 -  bigSpeedI);
-       const bigDif = bigSum / BigInt(s) * BigInt(t);
-      
-      overtaking += dif - 1;
-      bigOvertaking += bigDif - BigInt(1);
-      
-      
-      // else overtaking += Math.floor(dif); 
-    };
+  let lowSpeeds = [];
+
+  for (let i = 0; i < n; i++) {
+    if (speeds[0] > speeds[i]) lowSpeeds.push(speeds[i])
   }
-      const result = Number.isInteger(overtaking) ? overtaking : bigOvertaking;
-  return result;
+
+  const length = lowSpeeds.length;
+
+
+  let overtaking = 0;
+  const fractPart0 = speeds[0] / s * t % 1;
+
+  for (let i = 0; i < length; i++) {
+    const fractPartI = lowSpeeds[i] % 1;
+
+    const dif = (speeds[0] - lowSpeeds[i]) / s * t
+    if (fractPart0 === fractPartI) overtaking += dif - 1;
+    else overtaking += (dif - dif % 1);
+
+
+  }
+
+  return (overtaking);
 };
 
 const reader = readline.createInterface({
