@@ -4,28 +4,37 @@ import readline from 'readline';
 const countOvertakes = (n, t, s, speeds) => {
   let overtaking = 0;
   let bigOvertaking = BigInt(0);
+
   const fractPart0 = speeds[0] / s * t % 1;
+
   const bigSpeed0 = BigInt(speeds[0]);
 
   for (let i = 1; i < n; i++) {
     if (speeds[0] > speeds[i]) {
       const fractPartI = speeds[i] / s * t % 1;
-      
-      const dif =(speeds[0] - speeds[i]) / s * t
-      
-       const bigSpeedI = BigInt(speeds[i]);
-       const bigSum= BigInt(bigSpeed0 -  bigSpeedI);
-       const bigDif = bigSum / BigInt(s) * BigInt(t);
-      
-      overtaking += dif - 1;
-      bigOvertaking += bigDif - BigInt(1);
-      
-      
-      // else overtaking += Math.floor(dif); 
+      const dif = (speeds[0] - speeds[i]) / s * t
+
+      const bigSpeedI = BigInt(speeds[i]);
+      const bigSum = bigSpeed0 - bigSpeedI;
+      const bigDif = bigSum / BigInt(s) * BigInt(t);
+
+
+      if (fractPartI === fractPart0) {
+        overtaking += dif - 1;
+        bigOvertaking += bigDif - BigInt(1);
+      }
+      else {
+        overtaking = Math.floor(dif);
+      };
     };
   }
-      const result = Number.isInteger(overtaking) ? overtaking : bigOvertaking;
-  return result;
+
+  if (Number.isSafeInteger(overtaking)) {
+    return Math.floor(overtaking);
+  } else {
+    return Number(bigOvertaking);
+  }
+
 };
 
 const reader = readline.createInterface({
@@ -47,7 +56,6 @@ reader.on('line', (line) => {
 
     console.log(countOvertakes(n, t, s, speeds));
 
-    // Для завершения программы после обработки ввода
     reader.close();
   }
 });
