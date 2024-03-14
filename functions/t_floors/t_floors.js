@@ -11,33 +11,41 @@ const countFloors = (n, t, floors, leavingEmployee) => {
   let movements;
 
   // суммарное количество перемещений Кати, если по порядку
-  let movementsByOrder = 0;
-  for (let currentFloorIndex = 1; currentFloorIndex < n; currentFloorIndex++) {
-    movementsByOrder += floors[currentFloorIndex] - floors[currentFloorIndex - 1]
-  };
+  // let movementsByOrder = 0;
+  let movementsByOrder = floors[n - 1] - floors[0];
+  // for (let currentFloorIndex = 1; currentFloorIndex < n; currentFloorIndex++) {
+  //   movementsByOrder += floors[currentFloorIndex] - floors[currentFloorIndex - 1]
+  // };
+  // console.log(`${movementsByOrder} посчитала по циклу`);
+  // const movementsByOrderAlt = floors[n - 1] - floors[0];
+  // console.log(`${movementsByOrderAlt} вычла из последнего нулевой`);
 
 
   // Перемещения до уходящего сотрудника, если идти по порядку
-  let movementsToLeavingEmployee = 0;
+  let movementsToLeavingEmployee = floors[indexOfLeavingEmployee] - floors[0];
 
-  // Считаем перемещения до уходящего сотрудника, если идти по порядку
-  for (let currentFloorIndex = 1; currentFloorIndex <= indexOfLeavingEmployee; currentFloorIndex++) {
-    movementsToLeavingEmployee += floors[currentFloorIndex] - floors[currentFloorIndex - 1]
-  };
 
   // если оказывается, что время до уходящего сотрудника, если идти по порядку, меньше, чем время через которое он уйдет
-  if (movementsToLeavingEmployee < t) return movementsByOrder;
+  if (movementsToLeavingEmployee <= t) return movementsByOrder;
   else {
     // тут разобрать вариант, когда Катя едет сначала к уходящему, а потом ко всем остальным
-    movements = 0;
-    movements += floors[indexOfLeavingEmployee] - floors[0];
-    floors.splice(indexOfLeavingEmployee, 1);
-    for (let currentFloorIndex = 1; currentFloorIndex < floors.length; currentFloorIndex++) {
-      movements += floors[currentFloorIndex] - floors[currentFloorIndex - 1]
-    };
 
-    return movements;
-  }
+    let movementsDownUp = floors[indexOfLeavingEmployee] - floors[0];
+    let movementsUpDown = floors[n - 1] - floors[indexOfLeavingEmployee];
+    let movementsOneDirection;
+
+    if (floors[0] === floors[indexOfLeavingEmployee]) movementsOneDirection = floors[n - 1] - floors[indexOfLeavingEmployee];
+    if (floors[n - 1] === floors[indexOfLeavingEmployee]) movementsOneDirection = floors[indexOfLeavingEmployee] - floors[0];
+    floors.splice(indexOfLeavingEmployee, 1);
+    movementsDownUp += floors[n - 2] - floors[0];
+    movementsUpDown += floors[n - 2] - floors[0];
+    // for (let currentFloorIndex = 1; currentFloorIndex < floors.length; currentFloorIndex++) {
+    //   movements += floors[currentFloorIndex] - floors[currentFloorIndex - 1]
+    // };
+
+    if (floors[0] !== floors[indexOfLeavingEmployee] && floors[n - 1] !== floors[indexOfLeavingEmployee]) return Math.min(movementsDownUp, movementsUpDown);
+    else return movementsOneDirection
+  };
 };
 
 const reader = readline.createInterface({
