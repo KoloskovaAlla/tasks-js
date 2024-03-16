@@ -1,35 +1,19 @@
-// const readline = require('readline');
-import readline from 'readline';
+const readline = require('readline');
+// import readline from 'readline';
 
 const countFloors = (n, t, floors, leavingEmployee) => {
 
   if (n !== floors.length) return;
 
-  // В массиве нумерация с нуля, поэтому индекс будет на единицу меньше, чем место в очереди
   const indexOfLeavingEmployee = leavingEmployee - 1;
 
   let movements;
-
-  // суммарное количество перемещений Кати, если по порядку
-  // let movementsByOrder = 0;
   let movementsByOrder = floors[n - 1] - floors[0];
-  // for (let currentFloorIndex = 1; currentFloorIndex < n; currentFloorIndex++) {
-  //   movementsByOrder += floors[currentFloorIndex] - floors[currentFloorIndex - 1]
-  // };
-  // console.log(`${movementsByOrder} посчитала по циклу`);
-  // const movementsByOrderAlt = floors[n - 1] - floors[0];
-  // console.log(`${movementsByOrderAlt} вычла из последнего нулевой`);
-
-
-  // Перемещения до уходящего сотрудника, если идти по порядку
   let movementsToLeavingEmployee = floors[indexOfLeavingEmployee] - floors[0];
 
 
-  // если оказывается, что время до уходящего сотрудника, если идти по порядку, меньше, чем время через которое он уйдет
   if (movementsToLeavingEmployee <= t) return movementsByOrder;
   else {
-    // тут разобрать вариант, когда Катя едет сначала к уходящему, а потом ко всем остальным
-
     let movementsDownUp = floors[indexOfLeavingEmployee] - floors[0];
     let movementsUpDown = floors[n - 1] - floors[indexOfLeavingEmployee];
     let movementsOneDirection;
@@ -39,9 +23,6 @@ const countFloors = (n, t, floors, leavingEmployee) => {
     floors.splice(indexOfLeavingEmployee, 1);
     movementsDownUp += floors[n - 2] - floors[0];
     movementsUpDown += floors[n - 2] - floors[0];
-    // for (let currentFloorIndex = 1; currentFloorIndex < floors.length; currentFloorIndex++) {
-    //   movements += floors[currentFloorIndex] - floors[currentFloorIndex - 1]
-    // };
 
     if (floors[0] !== floors[indexOfLeavingEmployee] && floors[n - 1] !== floors[indexOfLeavingEmployee]) return Math.min(movementsDownUp, movementsUpDown);
     else return movementsOneDirection
@@ -68,7 +49,6 @@ reader.on('line', (line) => {
 
     console.log(countFloors(n, t, floors, leavingEmployee));
 
-    // Для завершения программы после обработки ввода
     reader.close();
   }
 });
