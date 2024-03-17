@@ -1,5 +1,5 @@
-// const readline = require('readline');
-import readline from 'readline';
+const readline = require('readline');
+// import readline from 'readline';
 
 const sum = (a, b) => {
   return a + b;
