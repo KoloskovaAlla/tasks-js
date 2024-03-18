@@ -1,27 +1,22 @@
 // const readline = require('readline');
 import readline from 'readline';
 
-
-
 const countOvertakes = (n, t, s, speeds) => {
   let rounds = [];
 
   for (let i = 0; i < n; i++) {
     // let currentCarRound = speeds[i] * t / s;
     let currentCarRound = Math.floor(speeds[i] * t / s);
-
     rounds.push(currentCarRound);
   }
 
   let overtaking = 0;
 
   for (let i = 1; i < n; i++) {
-
-
     if (rounds[0] - rounds[i] > 1) {
       overtaking += rounds[0] - rounds[i] - 1;
-    }
-  }
+    };
+  };
 
   return overtaking;
 };
