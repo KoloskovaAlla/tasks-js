@@ -6,7 +6,7 @@ export const logs = (input) => {
   if (hh1 !== hh2) return hh1 < hh2;
   if (mm1 !== mm2) return mm1 < mm2;
   return ss1 < ss2;
-}
+  }
   const lines = input.trim().split('\n');
   const n = parseInt(lines[0], 10);
   const events = lines.slice(1);
