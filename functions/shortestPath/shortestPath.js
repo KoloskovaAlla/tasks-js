@@ -19,4 +19,18 @@ rl.on('line', (line) => {
 
 rl.on('close', () => {
   numVertices = parseInt(inputLines[0], 10);
+
+  // Преобразуем строки с матрицей смежности в массив чисел
+  const adjacencyMatrix = inputLines.slice(1, numVertices + 1).map(line => line.split(' ').map(Number));
+
+  // Преобразуем последнюю строку для получения начальной и конечной вершин
+  [start, end] = inputLines[numVertices + 1].split(' ').map(Number);
+
+    // Вызываем функцию для нахождения кратчайшего пути и выводим результат
+  console.log(shortestPathLength(numVertices, adjacencyMatrix, start, end));
+  
 });
+
+const shortestPathLength = (numVertices, adjacencyMatrix, start, end) => {
+  
+};
