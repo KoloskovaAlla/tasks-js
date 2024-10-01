@@ -1,34 +1,41 @@
 process.stdin.resume();
 process.stdin.setEncoding("utf-8");
-var stdin_input = "";
-var lineCount = 0; // Счетчик введенных строк
+let stdin_input = "";
+let lineCount = 0;
 let numberOfStations;
 let arr = [];
 
 process.stdin.on("data", function (input) {
-  stdin_input += input;  // get the input
+  stdin_input += input;
+
+  let inputLines = stdin_input.trim().split("\n");  // Разделяем строки
 
   if (lineCount === 0) {
-    numberOfStations = Number(input);
+    numberOfStations = Number(inputLines[0]);  // Первая строка — количество станций
   }
 
-  if (lineCount !== 0) {
-    arr.push(Number(input));
-  };
+  // Если введены все строки (первая строка + данные для всех станций)
+  if (inputLines.length === numberOfStations + 1) {
+    for (let i = 1; i <= numberOfStations; i++) {
+      arr.push(Number(inputLines[i]));  // Остальные строки — значения счетчиков
+    }
 
-  lineCount++;
-
-  if (lineCount === numberOfStations + 1) {
-    main(arr); // Убираем лишние пробелы
-    process.stdin.pause(); // Останавливаем ввод
+    main(arr);  // Вызываем основную функцию
+    process.stdin.pause();  // Останавливаем ввод
   }
+
+  lineCount = inputLines.length;  // Обновляем количество строк
 });
-process.stdin.on("end", function () {
-  main(stdin_input);
-});
-function main(input) {
-  // do something
-  console.log(input)
-  console.log('дело сделано')
-  // process.stdout.write(input); // print response to stdout
+
+function main(arr) {
+  let sumOfNumbers = 0;
+  for (let i = 0; i < arr.length; i++) {
+    sumOfNumbers += arr[i];  // Суммируем значения массива
+  }
+
+  if (sumOfNumbers % 2 === 0) {
+    console.log(1);  // Если сумма четная, выводим 1
+  } else {
+    console.log(0);  // Если сумма нечетная, выводим 0
+  }
 }
