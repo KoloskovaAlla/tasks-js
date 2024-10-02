@@ -24,4 +24,3 @@ const rl = readline.createInterface({
 //  rl.close();
 // });
 
-https://coderun.yandex.ru/problem/shortest-path-length?currentPage=1&difficulty=EASY&groups=algorithm&groups=frontend&pageSize=20&search=&tag=bfs&compiler=nodejs_20
