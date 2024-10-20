@@ -1,17 +1,19 @@
-console.log('test')
+
 process.stdin.resume();
 process.stdin.setEncoding("utf-8");
 var stdin_input = "";
 process.stdin.on("data", function (input) {
     stdin_input += input;  // get the input
-     process.stdin.pause();
+    if (stdin_input !== '') {
+        process.stdin.emit("end");
+    }
 });
 process.stdin.on("end", function () {
    main(stdin_input);
 });
 
 function main(input) {
-    console.log('test2')
+    
     const MOD = 998244353;
     const n = parseInt(input.trim(), 10);
 
@@ -59,5 +61,6 @@ function main(input) {
     let result = (p * modInverse(q, MOD)) % MOD;
 
     process.stdout.write(result.toString() + "\n"); // выводим результат
+    process.exit();
    
 }
