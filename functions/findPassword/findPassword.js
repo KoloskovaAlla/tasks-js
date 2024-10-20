@@ -1,53 +1,50 @@
 const readline = require('readline');
 
-const restoreSet = (sequence, requiredSet, k) => {
-  const n = sequence.length;
-  let bestStart = -1;
-  let bestEnd = -1;
-  let minLen = Infinity;
+const restoreSet = (inputString, requiredChars, maxLength) => {
+    const requiredSet = new Set(requiredChars);
+    const requiredCount = requiredSet.size;
+    const charCounts = {};
+    let left = 0, right = 0, foundCount = 0;
+    let bestResult = '';
 
-  let left = 0;
-  const currentCount = {};
-  let countCovered = 0;
-  const requiredCount = requiredSet.size;
+    while (right < inputString.length) {
+        // Обрабатываем правую границу окна
+        if (requiredSet.has(inputString[right])) {
+            charCounts[inputString[right]] = (charCounts[inputString[right]] || 0) + 1;
+            if (charCounts[inputString[right]] === 1) {
+                foundCount++;
+            }
+        }
 
-  for (let right = 0; right < n; right++) {
-    const char = sequence[right];
-    if (requiredSet.has(char)) {
-      if (!currentCount[char]) {
-        currentCount[char] = 0;
-      }
-      currentCount[char]++;
-      if (currentCount[char] === 1) {
-        countCovered++;
-      }
+        // Проверяем, покрытия ли мы все необходимые символы
+        while (foundCount === requiredCount) {
+            const currentLength = right - left + 1;
+
+            if (currentLength <= maxLength) {
+                const candidate = inputString.slice(left, right + 1);
+                
+                // Проверка на выбор самого длинного и с правой позиции
+                if (
+                    candidate.length > bestResult.length || 
+                    (candidate.length === bestResult.length && left > inputString.indexOf(bestResult))
+                ) {
+                    bestResult = candidate;
+                }
+            }
+
+            // Обрабатываем левую границу окна
+            if (requiredSet.has(inputString[left])) {
+                charCounts[inputString[left]]--;
+                if (charCounts[inputString[left]] === 0) {
+                    foundCount--;
+                }
+            }
+            left++;
+        }
+        right++;
     }
 
-    while (countCovered === requiredCount) {
-      const currentLen = right - left + 1;
-      if (currentLen <= k) {
-        if (currentLen < minLen || 
-           (currentLen === minLen && left > bestStart)) {
-          minLen = currentLen;
-          bestStart = left;
-          bestEnd = right;
-        }
-      }
-      const charLeft = sequence[left];
-      if (requiredSet.has(charLeft)) {
-        currentCount[charLeft]--;
-        if (currentCount[charLeft] === 0) {
-          countCovered--;
-        }
-      }
-      left++;
-    }
-  }
-
-  if (bestStart === -1) {
-    return -1;
-  }
-  return sequence.substring(bestStart, bestEnd + 1);
+    return bestResult.length > 0 ? bestResult : '-1';
 };
 
 const reader = readline.createInterface({
@@ -55,15 +52,21 @@ const reader = readline.createInterface({
     output: process.stdout
 });
 
-const input = [];
+let inputString = '';
+let requiredChars = '';
+let maxLength = 0;
+let lineCount = 0;
+
 reader.on('line', (line) => {
-   input.push(line);
-   if (input.length === 3) {
-       const sequence = input[0];
-       const requiredSet = new Set(input[1]);
-       const k = parseInt(input[2]);
-       const result = restoreSet(sequence, requiredSet, k);
-       console.log(result);
-       reader.close();
-   }
+    if (lineCount === 0) {
+        inputString = line;
+    } else if (lineCount === 1) {
+        requiredChars = line;
+    } else if (lineCount === 2) {
+        maxLength = parseInt(line);
+        const result = restoreSet(inputString, requiredChars, maxLength);
+        console.log(result);
+        reader.close();
+    }
+    lineCount++;
 });
