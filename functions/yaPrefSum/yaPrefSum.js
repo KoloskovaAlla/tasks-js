@@ -24,16 +24,16 @@ rl.on("close", () => {
 
   const prefSum = (length, array) => {
 
-    let prefSumArray = new Array(length);
-    prefSumArray[0] = array[0];
-    let prefSum = array[0];
+    let prefSumArray = new Array(length + 1);
+    prefSumArray[0] = 0;
+    let prefSum = 0;
 
     for (let index = 1; index < prefSumArray.length; index++) {
-      prefSum += array[index];
+      prefSum += array[index - 1];
 
       prefSumArray[index] = prefSum;
     }
-    console.log(prefSumArray.join(" "))
+    console.log(prefSumArray.slice(1).join(" "));
   };
 
   prefSum(length, array);
