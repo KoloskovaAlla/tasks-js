@@ -21,11 +21,25 @@ rl.on("close", () => {
   const carsArray = input[1].split(" ").map(Number);
 
 
+
+
+
   const sumOfNumbers = (numberOfCars, luckySum, carsArray) => {
     let numberOfSets;
 
+    let prefSumArray = new Array(carsArray.length + 1);
 
-    console.log(numberOfSets);
+    prefSumArray[0] = 0;
+    let prefSum = 0;
+
+    for (let index = 1; index < prefSumArray.length; index++) {
+      prefSum += carsArray[index - 1];
+      prefSumArray[index] = prefSum;
+    }
+
+    console.log(prefSumArray);
+
+    // console.log(numberOfSets);
   };
 
   sumOfNumbers(numberOfCars, luckySum, carsArray);
