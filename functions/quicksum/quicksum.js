@@ -1,9 +1,8 @@
 const quicksum = (packet) => {
-    result = 0;
+    let result = 0;
     for (let i = 0; i < packet.length; i++) {   
-        const charCode = packet.charCodeAt(i)
-        // console.log(charCode)
-        if (packet[i] === ' ') result += 0
+        const charCode = packet.charCodeAt(i)        
+        if (packet[i] === ' ') continue;
             else if (charCode < 65 || charCode > 90) return 0;
                 else result += (i + 1) *  (packet.charCodeAt(i) - 65 + 1)
 
