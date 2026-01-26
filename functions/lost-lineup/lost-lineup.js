@@ -1,8 +1,8 @@
-const findLineup = (distances) => {
-  
+const findLineup = (distances) => {  
     const distancesWithIndexes = distances.map((distance, index) => {
         return {distance: distance, index: index + 1}
     })
+    
     distancesWithIndexes.sort((a, b) => {return a.distance - b.distance})
 
     for (let i = 0; i < distancesWithIndexes.length; i++) {
