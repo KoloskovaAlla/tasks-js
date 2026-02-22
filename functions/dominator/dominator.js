@@ -5,22 +5,15 @@ const dominator = (arr) => {
 
     for (let i = 0; i < arr.length; i++) {
         if (counts[arr[i]] === undefined) {
-            counts[arr[i]] = 1;
-            console.log(arr[i]);
-            console.log(counts[arr[i]]);
-            console.log('------------');
+            counts[arr[i]] = 1;            
         }
             else {
                 counts[arr[i]] += 1;
-                if (counts[arr[i]] > arr.length / 2) dominator = arr[i];
-                console.log(arr[i]);
-                console.log(counts[arr[i]]);
-                console.log('------------');
+                if (counts[arr[i]] > arr.length / 2) dominator = arr[i];              
             }
         };
     if (!dominator) return -1;
     return dominator;
-
    
 };
 
