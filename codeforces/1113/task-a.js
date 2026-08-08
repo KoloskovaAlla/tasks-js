@@ -8,7 +8,7 @@ const results = [];
 const removeAlica = (s) => {
   const length = s.length;
   let isRemoved = false;
-  let currentIndex = length - 1;
+  let currentIndex = 1;
   if (s[0] === '0') {
     return s.slice(1);
   }
@@ -17,7 +17,7 @@ const removeAlica = (s) => {
       isRemoved = true;
       return s.slice(0, currentIndex) + s.slice(currentIndex + 1);
     }
-    else { currentIndex-- }
+    else { currentIndex++ }
   }
 
 };
